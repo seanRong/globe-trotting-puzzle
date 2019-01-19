@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<!-- some notes  
+fn calculates distance between 2 coords
+(assumed to be straightline, otherwise could be infinitely long)
+
+haversine formula:
+a = sin²(deltaφ/2) + cos φ1 * cos φ2 * sin²(deltaλ/2)
+c = 2arctan(sqrt a/sqrt(1−a))
+d = R * c
+
+
+suggested to have a toRadians fn-->
+<body>
+
+<h2>Positional Puzzle</h2>
+
+<p>Please input your coordinates:</p>
+
+<input type="number" id="la1"> point1 lat <br>
+<input type="number" id="lo1"> point1 long<br>
+<input type="number" id="la2"> point2 lat<br>
+<input type="number" id="lo2"> point2 long<br>
+
+
+<button onclick= "haversine()"> Distance me </button>
+<br>
+
+
+
+
+<script>
+
+
+function haversine() {
+var lat1 = document.getElementById('la1').value;
+var long1 = document.getElementById('lo1').value;
+var lat2 = document.getElementById('la2').value;
+var long2 = document.getElementById('lo2').value;
+
+
+var R = 6371;                     //kilos of Earth radius
+var φ1 = toRadians(lat1);
+var φ2 = toRadians(lat2);
+var deltaφ = toRadians(lat2-lat1);
+var deltaλ = toRadians(long2-long1);        //the formula doesn't calc in degs
+
+var a = Math.sin(deltaφ/2) * Math.sin(deltaφ/2) +
+        Math.cos(φ1) * Math.cos(φ2) *
+        Math.sin(deltaλ/2) * Math.sin(deltaλ/2);
+		
+var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+var d = R * c; 
+
+
+alert(d + " kilometers"); 
+
+
+}
+
+
+function toRadians(degrees)
+{
+	return degrees * Math.PI * (1/180) 
+	} 
+
+</script>
+
+</body>
+</html> 
